@@ -2,6 +2,8 @@ package com.example.starterapp.presentation.list
 
 import android.annotation.SuppressLint
 import android.content.Context
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -44,5 +46,6 @@ class MovieListViewModel: ViewModel() {
 
         return listOf(movie, movie2, movie3)
     }
-
+    private val _films = mutableStateOf<List<Film>>(generateFilms())
+    val films: State<List<Film>> = _films
 }

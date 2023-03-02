@@ -20,6 +20,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.compose.rememberNavController
 import com.example.starterapp.data.Film
 import com.example.starterapp.presentation.list.MovieListViewModel
 import com.example.starterapp.ui.theme.StarterAppTheme
@@ -31,28 +33,15 @@ class MainActivity : ComponentActivity() {
         val viewModel: MovieListViewModel by viewModels()
         val films = viewModel.generateFilms()
         setContent {
-            FilmList(films = films)
+            StarterAppTheme{
+                val navController = rememberNavController()
+                Navigation(navController,viewModel)
+            }
         }
     }
 }
 
-@Composable
-fun FilmCard(film: Film){
-    Row(modifier = Modifier.padding(all = 8.dp)) {
-        Image(painter = painterResource(id = film.photo),
-            contentDescription = "test",
-        modifier = Modifier
-            .size(40.dp)
-            .clip(CircleShape)
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-        Column {
-            Text(text = film.name)
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(text = film.date_publication)
-        }
-    }
-}
+
 
 @Composable
 fun FilmList(films:List<Film>){
